@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- SQL XML created by WWW SQL Designer, https://github.com/ondras/wwwsqldesigner/ -->
+<!-- Active URL: http://ondras.zarovi.cz/sql/demo/ -->
+<sql>
+<datatypes db="mysql">
+  <group label="Numeric" color="rgb(238,238,170)">
+    <type label="Integer" length="0" sql="INTEGER" quote=""/>
+    <type label="TINYINT" length="0" sql="TINYINT" quote=""/>
+    <type label="SMALLINT" length="0" sql="SMALLINT" quote=""/>
+    <type label="MEDIUMINT" length="0" sql="MEDIUMINT" quote=""/>
+    <type label="INT" length="0" sql="INT" quote=""/>
+    <type label="BIGINT" length="0" sql="BIGINT" quote=""/>
+    <type label="Decimal" length="1" sql="DECIMAL" re="DEC" quote=""/>
+    <type label="Single precision" length="0" sql="FLOAT" quote=""/>
+    <type label="Double precision" length="0" sql="DOUBLE" re="DOUBLE" quote=""/>
+  </group>
+
+  <group label="Character" color="rgb(255,200,200)">
+    <type label="Char" length="1" sql="CHAR" quote="'"/>
+    <type label="Varchar" length="1" sql="VARCHAR" quote="'"/>
+    <type label="Text" length="0" sql="MEDIUMTEXT" re="TEXT" quote="'"/>
+    <type label="Binary" length="1" sql="BINARY" quote="'"/>
+    <type label="Varbinary" length="1" sql="VARBINARY" quote="'"/>
+    <type label="BLOB" length="0" sql="BLOB" re="BLOB" quote="'"/>
+  </group>
+
+  <group label="Date &amp; Time" color="rgb(200,255,200)">
+    <type label="Date" length="0" sql="DATE" quote="'"/>
+    <type label="Time" length="0" sql="TIME" quote="'"/>
+    <type label="Datetime" length="0" sql="DATETIME" quote="'"/>
+    <type label="Year" length="0" sql="YEAR" quote=""/>
+    <type label="Timestamp" length="0" sql="TIMESTAMP" quote="'"/>
+  </group>
+  
+  <group label="Miscellaneous" color="rgb(200,200,255)">
+    <type label="ENUM" length="1" sql="ENUM" quote=""/>
+    <type label="SET" length="1" sql="SET" quote=""/>
+    <type label="Bit" length="0" sql="bit" quote=""/>
+  </group>
+</datatypes><table x="483" y="151" name="chefs">
+<row name="Chefid" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<key type="PRIMARY" name="">
+<part>Chefid</part>
+</key>
+<comment>lista de chefs inscritos en el restaurante</comment>
+</table>
+<table x="651" y="161" name="meals">
+<row name="MealId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<row name="Chefid" null="0" autoincrement="0">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default><relation table="chefs" row="Chefid" />
+</row>
+<key type="PRIMARY" name="">
+<part>MealId</part>
+</key>
+<comment>tipos de comidas que se preparan en el restaurante y por chef</comment>
+</table>
+<table x="975" y="171" name="ingredients">
+<row name="IngredientId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT ULL</default></row>
+<key type="PRIMARY" name="">
+<part>IngredientId</part>
+</key>
+<comment>elementos necesarios para preparar las comidas</comment>
+</table>
+<table x="501" y="400" name="menu">
+<row name="MenuId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<key type="PRIMARY" name="">
+<part>MenuId</part>
+</key>
+<comment>lista de comidas</comment>
+</table>
+<table x="820" y="171" name="receta">
+<row name="MealId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default><relation table="meals" row="MealId" />
+</row>
+<row name="Quantity" null="0" autoincrement="0">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<row name="Measurement" null="0" autoincrement="0">
+<datatype>VARCHAR(5)</datatype>
+<default>'NOT NULL'</default></row>
+<row name="IngredientId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="ingredients" row="IngredientId" />
+</row>
+<key type="PRIMARY" name="">
+<part>MealId</part>
+</key>
+<comment>lista por comida de los ingredientes necesarios para realizarla</comment>
+</table>
+<table x="630" y="387" name="menu_meals">
+<row name="MenuMealId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<row name="mealId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="meals" row="MealsId" />
+</row>
+<row name="MenuId" null="0" autoincrement="0">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default><relation table="menu" row="MenuId" />
+</row>
+<key type="PRIMARY" name="">
+<part>MenuMealId</part>
+</key>
+</table>
+<table x="831" y="372" name="meals">
+<row name="MealsId" null="1" autoincrement="1">
+<datatype>VARCHAR(64)</datatype>
+<default>'NOT ULL'</default></row>
+<row name="ChefId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="chefs" row="ChefId" />
+</row>
+<row name="CategoryId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="category" row="CategoryId" />
+</row>
+<key type="PRIMARY" name="">
+<part>MealsId</part>
+</key>
+</table>
+<table x="967" y="402" name="chefs">
+<row name="ChefId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT ULL</default></row>
+<key type="PRIMARY" name="">
+<part>ChefId</part>
+</key>
+</table>
+<table x="454" y="550" name="ingredients">
+<row name="IngredientId" null="0" autoincrement="1">
+<datatype>INTEGER(5)</datatype>
+<default>NOT NULL</default></row>
+<key type="PRIMARY" name="">
+<part>IngredientId</part>
+</key>
+</table>
+<table x="961" y="504" name="category">
+<row name="CategoryId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>CategoryId</part>
+</key>
+</table>
+<table x="611" y="528" name="ingredients_meals">
+<row name="IngMealsId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="MealsId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="meals" row="MealsId" />
+</row>
+<row name="IngredientId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="ingredients" row="IngredientId" />
+</row>
+<key type="PRIMARY" name="">
+<part>IngMealsId</part>
+<part>MealsId</part>
+</key>
+</table>
+<table x="484" y="725" name="menu">
+<row name="MenuiD" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>MenuiD</part>
+</key>
+</table>
+<table x="638" y="700" name="menu_meals">
+<row name="MenuMealsId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="MealId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="meals" row="MealsId" />
+</row>
+<row name="MenuId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="menu" row="MenuiD" />
+</row>
+<key type="PRIMARY" name="">
+<part>MenuMealsId</part>
+</key>
+</table>
+<table x="831" y="701" name="meals">
+<row name="MealsId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="ingredient_meals" row="MealId" />
+</row>
+<row name="ChefId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="chefs" row="ChefId" />
+</row>
+<row name="MealCatId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="meal_category" row="mealCatId" />
+</row>
+<key type="PRIMARY" name="">
+<part>MealsId</part>
+</key>
+</table>
+<table x="963" y="702" name="chefs">
+<row name="ChefId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>ChefId</part>
+</key>
+</table>
+<table x="451" y="848" name="ingredients">
+<row name="IngredientId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>IngredientId</part>
+</key>
+</table>
+<table x="626" y="823" name="ingredient_meals">
+<row name="MenuMealsId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="MealId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="MenuId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="ingredients" row="IngredientId" />
+</row>
+<key type="PRIMARY" name="">
+<part>MenuMealsId</part>
+<part>MealId</part>
+</key>
+</table>
+<table x="1144" y="787" name="category">
+<row name="CategoryId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>CategoryId</part>
+</key>
+</table>
+<table x="951" y="835" name="meal_category">
+<row name="mealCatId" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="CategoryId" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="category" row="CategoryId" />
+</row>
+<key type="PRIMARY" name="">
+<part>mealCatId</part>
+</key>
+</table>
+</sql>
